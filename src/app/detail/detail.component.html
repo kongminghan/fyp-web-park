@@ -1,0 +1,26 @@
+<td-layout-nav>
+  <!--<div td-toolbar-content layout="row" layout-align="center center" flex>-->
+  <!--<span *ngFor="let item of afItems | async"></span>-->
+  <!--<span flex></span>-->
+  <!--</div>-->
+  <td-layout-card-over>
+    <md-card-title>{{carNumber}}'s Recent Parking</md-card-title>
+    <md-card-subtitle>Last parked at: {{lastPark}}</md-card-subtitle>
+    <md-divider></md-divider>
+    <md-list>
+      <md-list-item layout-align="row" *ngFor="let item of afItems | async">
+        <md-icon md-list-avatar> receipt</md-icon>
+        <h3 md-line> {{item.CarNumber}} </h3>
+        <p md-line> Enter {{item.LastEnterDate + " "+ item.LastEnterTime}} </p>
+        <p md-line *ngIf="item.ExtDate"> Exit {{item.ExtDate + " "+ item.ExtTime}} </p>
+        <span class="md-body-2 text-right tc-blue-500" flex="20"> {{(item.Payment) | currency:'MYR'}} </span>
+      </md-list-item>
+    </md-list>
+    <md-divider></md-divider>
+    <md-card-actions>
+      <button md-button color="accent" class="text-upper" (click)="goBack()">
+        Back
+      </button>
+    </md-card-actions>
+  </td-layout-card-over>
+</td-layout-nav>
