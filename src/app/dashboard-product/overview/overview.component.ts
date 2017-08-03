@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import {Component, AfterViewInit, Input} from '@angular/core';
 import { Title }     from '@angular/platform-browser';
 import { TdDigitsPipe, TdDialogService} from '@covalent/core';
 
@@ -16,6 +16,9 @@ export class ProductOverviewComponent implements AfterViewInit {
 
   items: Object[];
   users: Object[];
+
+  // @Input('state') state: string;
+  storage = window.sessionStorage;
 
   // Chart
   single: any[];
@@ -40,9 +43,8 @@ export class ProductOverviewComponent implements AfterViewInit {
               af: AngularFire) {
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
-    // // Chart Single
-    // Object.assign(this, {single});
-    this.afItems = af.database.list('/car', {
+
+    this.afItems = af.database.list('/mall/' + this.storage.getItem('user'), {
       query: {
         orderByChild: 'timestamp',
         limitToLast: 10,
@@ -50,9 +52,10 @@ export class ProductOverviewComponent implements AfterViewInit {
       },
     });
 
-    this.reverseList = this.afItems.map((arr) => { return arr.reverse(); });
-
-    this.afRate = af.database.object('/rate');
+    this.reverseList = this.afItems.map((arr) => {
+      console.log(arr);
+      return arr.reverse(); });
+    this.afRate = af.database.object('/user/' + this.storage.getItem('user') + '/rate');
     this.afRate.subscribe((snapshot) => {
       this.rate.firstHour = snapshot.firstHour;
       this.rate.nextHour = snapshot.nextHour;

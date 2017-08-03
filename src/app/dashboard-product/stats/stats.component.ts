@@ -4,6 +4,8 @@ import { TdDataTableSortingOrder, TdDataTableService, ITdDataTableSortChangeEven
 } from '@covalent/core';
 import {IPageChangeEvent} from '@covalent/core';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import { MomentModule } from 'angular2-moment';
+import {DateFormatter} from "@angular/common/src/pipes/intl";
 
 const NUMBER_FORMAT: any = (v: { value: number }) => v.value;
 const DECIMAL_FORMAT: any = (v: { value: number }) => v.value.toFixed(2);
@@ -60,45 +62,72 @@ export class ProductStatsComponent implements AfterViewInit {
   sortBy: string = 'name';
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
+  storage = window.sessionStorage;
+
   constructor(private _titleService: Title,
               private _dataTableService: TdDataTableService,
-              af: AngularFire) {
+              af: AngularFire,
+              moment: MomentModule) {
     this.afItems = af.database.list('/car', {query: {orderBy: 'timestamp'}});
 
     const startOfDay: Date = new Date();
     startOfDay.setHours(0, 0, 0, 0);
     const endOfStart: Date = new Date();
     endOfStart.setHours(0, 0, 0, 0);
-    endOfStart.setMinutes(startOfDay.getMinutes() + 20);
+    endOfStart.setMinutes(startOfDay.getMinutes() + 15);
     const after15: Date = new Date();
     after15.setHours(0, 0, 0, 0);
     const endOfDay: Date = new Date();
 
-    do {
-      const chartData = af.database.list('/statCar', {
-        query: {
-          orderByChild: 'timestamp',
-          startAt: startOfDay.getTime(),
-          endAt: endOfStart.getTime(),
-        },
-      }).subscribe((snapshots) => {
-        this.firebaseData[0].series.push({
-          'value': snapshots.length,
-          'name': after15,
-        });
-        after15.setMinutes(after15.getMinutes() + 20);
+    const prevDay: Date = new Date();
+    prevDay.setDate(-1);
+    prevDay.setHours(0, 0, 0, 0);
+    let now: Date = new Date();
+    now.setHours(0, 0, 0, 0);
+    now.setMinutes(prevDay.getMinutes() + 15);
 
-        this.multi = this.firebaseData.map((group: any) => {
-          group.series = group.series.map((dataItem: any) => {
-            dataItem.name = new Date(dataItem.name);
-            return dataItem;
-          });
-          return group;
+    const chartData = af.database.list('/usage/' + this.storage.getItem('user'), {
+      query: {
+        orderByChild: 'timestamp',
+        startAt: prevDay.getTime(),
+        // endAt: endOfDay.getTime(),
+      },
+    });
+    chartData.subscribe((snapshots) => {
+      snapshots.forEach((snapshot) => {
+        this.firebaseData[0].series.push({
+          'value': snapshot.count,
+          'name': new Date(snapshot.timestamp).toLocaleTimeString(),
         });
       });
-      startOfDay.setMinutes(startOfDay.getMinutes() + 20);
-      endOfStart.setMinutes(endOfStart.getMinutes() + 20);
-    } while (startOfDay < endOfDay);
+
+      this.multi = this.firebaseData;
+    })
+    // do {
+    //   const chartData = af.database.list('/statCar', {
+    //     query: {
+    //       orderByChild: 'timestamp',
+    //       startAt: startOfDay.getTime(),
+    //       endAt: endOfStart.getTime(),
+    //     },
+    //   }).subscribe((snapshots) => {
+    //     this.firebaseData[0].series.push({
+    //       'value': snapshots.length,
+    //       'name': after15,
+    //     });
+    //     after15.setMinutes(after15.getMinutes() + 15);
+    //
+    //     this.multi = this.firebaseData.map((group: any) => {
+    //       group.series = group.series.map((dataItem: any) => {
+    //         dataItem.name = new Date(dataItem.name);
+    //         return dataItem;
+    //       });
+    //       return group;
+    //     });
+    //   });
+    //   startOfDay.setMinutes(startOfDay.getMinutes() + 15);
+    //   endOfStart.setMinutes(endOfStart.getMinutes() + 15);
+    // } while (startOfDay < endOfDay);
 
     this.afTable = af.database.list('/car');
     this.afTable.subscribe((snapshots) => {

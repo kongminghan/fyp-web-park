@@ -11,6 +11,7 @@ import { TdMediaService } from '@covalent/core';
 export class DashboardProductComponent implements AfterViewInit {
 
   title: string;
+  mall: string;
   constructor(private _titleService: Title,
               public media: TdMediaService,
               private _router: Router) { }
@@ -19,8 +20,10 @@ export class DashboardProductComponent implements AfterViewInit {
     // broadcast to all listener observables when loading the page
     this.media.broadcast();
 
-    this._titleService.setTitle( 'Dashboard' );
-    this.title = this._titleService.getTitle();
+    // this._titleService.setTitle( 'Dashboard' );
+    // this.title = this._titleService.getTitle();
+    let storage = window.sessionStorage;
+    this.mall = storage.getItem('user');
   }
   logout(): void {
     this._router.navigate(['/login']);

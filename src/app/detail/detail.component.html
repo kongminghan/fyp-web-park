@@ -11,6 +11,7 @@
       <md-list-item layout-align="row" *ngFor="let item of afItems | async">
         <md-icon md-list-avatar> receipt</md-icon>
         <h3 md-line> {{item.CarNumber}} </h3>
+        <p md-line> Location: {{item.CarLocation}} </p>
         <p md-line> Enter {{item.LastEnterDate + " "+ item.LastEnterTime}} </p>
         <p md-line *ngIf="item.ExtDate"> Exit {{item.ExtDate + " "+ item.ExtTime}} </p>
         <span class="md-body-2 text-right tc-blue-500" flex="20"> {{(item.Payment) | currency:'MYR'}} </span>

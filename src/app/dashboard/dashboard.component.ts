@@ -111,20 +111,20 @@ export class DashboardComponent implements AfterViewInit {
         this._loadingService.resolve('favorites.load');
       }, 750);
     });
-    this._loadingService.register('users.load');
-    this._usersService.query().subscribe((users: Object[]) => {
-      this.users = users;
-      setTimeout(() => {
-        this._loadingService.resolve('users.load');
-      }, 750);
-    }, (error: Error) => {
-      this._usersService.staticQuery().subscribe((users: Object[]) => {
-        this.users = users;
-        setTimeout(() => {
-          this._loadingService.resolve('users.load');
-        }, 750);
-      });
-    });
+    // this._loadingService.register('users.load');
+    // this._usersService.query().subscribe((users: Object[]) => {
+    //   this.users = users;
+    //   setTimeout(() => {
+    //     this._loadingService.resolve('users.load');
+    //   }, 750);
+    // }, (error: Error) => {
+    //   this._usersService.staticQuery().subscribe((users: Object[]) => {
+    //     this.users = users;
+    //     setTimeout(() => {
+    //       this._loadingService.resolve('users.load');
+    //     }, 750);
+    //   });
+    // });
   }
 
   // ngx transform using covalent digits pipe

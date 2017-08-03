@@ -10,21 +10,29 @@
           <md-card-subtitle>sign in via your admin account</md-card-subtitle>
           <md-divider></md-divider>
           <md-card-content>
+            <br>
             <form #loginForm="ngForm">
               <div layout="row">
-                <md-input-container flex>
-                  <input mdInput #userElement #userControl="ngModel" placeholder="Username" type="text" maxlength="30" name="username" [(ngModel)]="username" required>
-                  <span md-prefix><md-icon>person</md-icon></span>
-                  <md-hint align="start">
-                    <span [hidden]="!userControl.errors?.required || userControl.pristine" class="tc-red-600">Required</span>
-                  </md-hint>
-                  <md-hint align="end">{{userElement.value.length}} / 30</md-hint>
-                </md-input-container>
+                <span md-prefix><md-icon>person</md-icon></span>
+                <md-select placeholder="Malls" [(ngModel)]="selectedValue" name="food" flex>
+                  <md-option *ngFor="let state of states | async" [value]="state.$key">
+                    {{state.$key}}
+                  </md-option>
+                </md-select>
+                <!--<md-input-container flex>-->
+                  <!--<input mdInput #userElement #userControl="ngModel" placeholder="Username" type="text" maxlength="30" name="username" [(ngModel)]="username" required>-->
+                  <!--<span md-prefix><md-icon>person</md-icon></span>-->
+                  <!--<md-hint align="start">-->
+                    <!--<span [hidden]="!userControl.errors?.required || userControl.pristine" class="tc-red-600">Required</span>-->
+                  <!--</md-hint>-->
+                  <!--<md-hint align="end">{{userElement.value.length}} / 30</md-hint>-->
+                <!--</md-input-container>-->
               </div>
+              <br>
               <div layout="row">
                 <md-input-container flex>
-                  <input mdInput #passElement #passControl="ngModel" placeholder="Password" type="password" name="password" [(ngModel)]="password" required>
                   <span md-prefix><md-icon>lock</md-icon></span>
+                  <input mdInput #passElement #passControl="ngModel" placeholder="Password" type="password" name="password" [(ngModel)]="password" required>
                   <md-hint align="start">
                     <span [hidden]="!passControl.errors?.required || passControl.pristine" class="tc-red-600">Required</span>
                   </md-hint>
