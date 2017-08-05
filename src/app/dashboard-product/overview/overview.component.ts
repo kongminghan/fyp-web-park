@@ -67,7 +67,7 @@ export class ProductOverviewComponent implements AfterViewInit {
       }
     });
 
-    const totalAmount = af.database.list('/stat', {
+    const totalAmount = af.database.list('/stat/' + this.storage.getItem('user') , {
       query: {
         orderByChild: 'timestamp',
         startAt: currentDate.getTime(),
