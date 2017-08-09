@@ -72,22 +72,23 @@ export class ProductStatsComponent implements AfterViewInit {
     const today: Date = new Date();
     today.setHours(0, 0, 0, 0);
     // today.setDate(today.getDate() - 4);
+    this.updateChartData(today);
 
-    const chartData = af.database.list('/usage/' + this.storage.getItem('user'), {
-      query: {
-        orderByChild: 'timestamp',
-        startAt: today.getTime(),
-      },
-    });
-    chartData.subscribe((snapshots) => {
-      snapshots.forEach((snapshot) => {
-        this.firebaseData[0].series.push({
-          'value': snapshot.count,
-          'name': new Date(snapshot.timestamp).toLocaleTimeString(),
-        });
-      });
-      this.multi = this.firebaseData;
-    });
+    // const chartData = af.database.list('/usage/' + this.storage.getItem('user'), {
+    //   query: {
+    //     orderByChild: 'timestamp',
+    //     startAt: today.getTime(),
+    //   },
+    // });
+    // chartData.subscribe((snapshots) => {
+    //   snapshots.forEach((snapshot) => {
+    //     this.firebaseData[0].series.push({
+    //       'value': snapshot.count,
+    //       'name': new Date(snapshot.timestamp).toLocaleTimeString(),
+    //     });
+    //   });
+    //   this.multi = this.firebaseData;
+    // });
 
     this.afTable = af.database.list('/car');
     this.afTable.subscribe((snapshots) => {
@@ -180,18 +181,31 @@ export class ProductStatsComponent implements AfterViewInit {
       snapshots.forEach((snapshot) => {
         this.firebaseData[0].series.push({
           'value': snapshot.count,
-          'name': new Date(snapshot.timestamp).toLocaleTimeString(),
+          'name': new Date(snapshot.timestamp),
         });
       });
       this.multi = [];
       this.multi = this.firebaseData;
       this.multi[0].series.push({
         'value': 0,
-        'name': new Date().toLocaleTimeString(),
+        'name': new Date(),
       });
-      // console.log(this.firebaseData[0].series.length);
+      // console.log(this.multi);
     });
   }
+
+  // getDate(date: Date): string {
+  //   let mm: number = date.getMonth() + 1; // getMonth() is zero-based
+  //   let dd: number = date.getDate();
+  //
+  //   let strDate: string =  [date.getFullYear(),
+  //     (mm > 9 ? '' : '0') + mm,
+  //     (dd > 9 ? '' : '0') + dd,
+  //   ].join('/');
+  //
+  //   let strTime: string = date.getHours().toString() + date.getMinutes().toString();
+  //   return strTime + ' ' + strDate;
+  // };
 
   // ngx transform using covalent digits pipe
   axisDigits(val: any): any {

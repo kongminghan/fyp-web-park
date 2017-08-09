@@ -51,10 +51,15 @@ export class ProductOverviewComponent implements AfterViewInit {
         startAt: currentDate.getTime(),
       },
     });
+    this.afItems.subscribe((snapshots) => {
+      snapshots.map((item) => {
+        this.reverseList = item.reverse();
+      });
+    });
 
     this.reverseList = this.afItems.map((arr) => {
-      console.log(arr);
       return arr.reverse(); });
+
     this.afRate = af.database.object('/user/' + this.storage.getItem('user') + '/rate');
     this.afRate.subscribe((snapshot) => {
       this.rate.firstHour = snapshot.firstHour;

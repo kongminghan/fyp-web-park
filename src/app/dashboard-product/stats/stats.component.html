@@ -22,9 +22,6 @@
               </md-button-toggle-group>
               <md-divider></md-divider>
               <div class="chart-height push-top-sm pull-bottom">
-                <div class="md-padding" *ngIf="firebaseData[0].series.length < 1" layout="row" layout-align="center center">
-                  <h3>No results to display.</h3>
-                </div>
                 <ngx-charts-area-chart *ngIf="firebaseData[0].series.length > 1"
                   [scheme]="colorScheme"
                   [results]="multi"
@@ -39,6 +36,9 @@
                   [autoScale]="autoScale"
                   [yAxisTickFormatting]="axisDigits">
                 </ngx-charts-area-chart>
+                <div class="md-padding" *ngIf="firebaseData[0].series.length < 1" layout="row" layout-align="center center">
+                  <h3>No results to display.</h3>
+                </div>
               </div>
           </md-card>
         </div>
