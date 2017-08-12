@@ -40,7 +40,7 @@
         <md-nav-list class="will-load item-list">
           <!--<ng-template tdLoading="afItems.load">-->
           <!--<ng-template *ngFor="let item of afItems | async">-->
-          <a *ngFor="let item of reverseList | async" md-list-item layout-align="row"
+          <a *ngFor="let item of reverseList" md-list-item layout-align="row"
              [routerLink]="['../item', item.CarNumber]">
             <md-icon md-list-avatar>directions_car</md-icon>
             <h3 md-line> {{item.CarNumber}} </h3>

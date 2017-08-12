@@ -1,0 +1,18 @@
+<h2 md-dialog-title>{{carNumber}}'s Recent Parking</h2>
+<md-dialog-content>
+  <md-card-subtitle>Last parked at: {{lastPark}}</md-card-subtitle>
+  <md-divider></md-divider>
+  <md-list>
+  <md-list-item layout-align="row" *ngFor="let item of afItems | async">
+  <md-icon md-list-avatar> receipt</md-icon>
+  <h3 md-line> {{item.CarNumber}} </h3>
+  <p md-line> Location: {{item.CarLocation}} </p>
+  <p md-line> Enter {{item.LastEnterDate + " "+ item.LastEnterTime}} </p>
+  <p md-line *ngIf="item.ExtDate"> Exit {{item.ExtDate + " "+ item.ExtTime}} </p>
+  <span class="md-body-2 text-right tc-blue-500" flex="20"> {{(item.Payment) | currency:'MYR'}} </span>
+  </md-list-item>
+  </md-list>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close="">Close</button>
+</md-dialog-actions>

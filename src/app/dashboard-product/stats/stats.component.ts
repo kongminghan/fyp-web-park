@@ -1,10 +1,14 @@
 import {Component, AfterViewInit} from '@angular/core';
 import {Title}     from '@angular/platform-browser';
-import { TdDataTableSortingOrder, TdDataTableService, ITdDataTableSortChangeEvent, TdDigitsPipe,
+import {
+  TdDataTableSortingOrder, TdDataTableService, ITdDataTableSortChangeEvent, TdDigitsPipe, ITdDataTableSelectEvent,
 } from '@covalent/core';
 import {IPageChangeEvent} from '@covalent/core';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 import { MomentModule } from 'angular2-moment';
+import {DetailComponent} from '../../detail/detail.component';
+import {MdDialog} from '@angular/material';
+import {DialogDetailComponent} from '../../dialog-detail/dialog-detail.component';
 
 const NUMBER_FORMAT: any = (v: { value: number }) => v.value;
 const DECIMAL_FORMAT: any = (v: { value: number }) => v.value.toFixed(2);
@@ -16,7 +20,7 @@ const DECIMAL_FORMAT: any = (v: { value: number }) => v.value.toFixed(2);
 })
 export class ProductStatsComponent implements AfterViewInit {
   columns: any[] = [
-    {name: 'name', label: 'Car Plate Number'},
+    {name: 'name', label: 'Car Plate Number',  sortable: true},
     {name: 'date', label: 'Last Enter Date'},
     {name: 'time', label: 'Last Enter Time'},
     // {name: 'usage', label: 'CPU Time (m)', numeric: true, format: NUMBER_FORMAT},
@@ -66,6 +70,7 @@ export class ProductStatsComponent implements AfterViewInit {
   constructor(private _titleService: Title,
               private _dataTableService: TdDataTableService,
               private af: AngularFire,
+              private dialog: MdDialog,
               moment: MomentModule) {
     this.afItems = af.database.list('/car', {query: {orderBy: 'timestamp'}});
 
@@ -210,5 +215,12 @@ export class ProductStatsComponent implements AfterViewInit {
   // ngx transform using covalent digits pipe
   axisDigits(val: any): any {
     return new TdDigitsPipe().transform(val);
+  }
+
+  showAlert(row: any): void {
+    let dialogRef = this.dialog.open(DialogDetailComponent, {
+      data: row.name,
+      width: '600px'
+    });
   }
 }

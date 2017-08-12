@@ -32,6 +32,8 @@ import { RequestInterceptor } from '../config/interceptors/request.interceptor';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AngularFireModule} from 'angularfire2';
 import { MomentModule } from 'angular2-moment';
+import {MdDialogModule} from "@angular/material";
+import { DialogDetailComponent } from './dialog-detail/dialog-detail.component';
 
 const httpInterceptorProviders: Type<any>[] = [
   RequestInterceptor,
@@ -61,6 +63,7 @@ export const firebaseConfig = {
     // FormComponent,
     DetailComponent,
     LoginComponent,
+    DialogDetailComponent,
     // TemplatesComponent,
     // DashboardTemplateComponent,
     // EmailTemplateComponent,
@@ -82,13 +85,14 @@ export const firebaseConfig = {
     NgxChartsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     MomentModule,
+    MdDialogModule,
   ], // modules needed to run this module
   providers: [
     appRoutingProviders,
     httpInterceptorProviders,
     Title,
   ], // additional providers needed for this module
-  entryComponents: [ ],
+  entryComponents: [DialogDetailComponent ],
   bootstrap: [ AppComponent ],
 })
 export class AppModule {}

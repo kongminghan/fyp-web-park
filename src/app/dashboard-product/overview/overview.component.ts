@@ -20,14 +20,10 @@ export class ProductOverviewComponent implements AfterViewInit {
   // @Input('state') state: string;
   storage = window.sessionStorage;
 
-  // Chart
-  single: any[];
-  multi: any[];
-
   // FireBase
   afItems: FirebaseListObservable<any>;
   afRate: FirebaseObjectObservable<any>;
-  reverseList: Observable<any>;
+  reverseList: any[] = [];
   carNumber: number;
   carPayment: number = 0.0;
   lastUpdatedCar: Date;
@@ -53,12 +49,17 @@ export class ProductOverviewComponent implements AfterViewInit {
     });
     this.afItems.subscribe((snapshots) => {
       snapshots.map((item) => {
-        this.reverseList = item.reverse();
+        this.reverseList.push({
+          CarNumber: item.CarNumber,
+          LastEnterDate: item.LastEnterDate,
+          LastEnterTime: item.LastEnterTime,
+          timestamp: item.timestamp});
       });
+      this.reverseList = this.reverseList.reverse();
     });
 
-    this.reverseList = this.afItems.map((arr) => {
-      return arr.reverse(); });
+    // this.reverseList = this.afItems.map((arr) => {
+    //   return arr.reverse(); });
 
     this.afRate = af.database.object('/user/' + this.storage.getItem('user') + '/rate');
     this.afRate.subscribe((snapshot) => {
