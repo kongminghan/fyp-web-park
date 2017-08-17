@@ -26,6 +26,8 @@ export class DashboardProductComponent implements AfterViewInit {
     this.mall = storage.getItem('user');
   }
   logout(): void {
+    let storage = window.sessionStorage;
+    storage.clear();
     this._router.navigate(['/login']);
   }
 }

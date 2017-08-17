@@ -97,6 +97,8 @@ export class ProductStatsComponent implements AfterViewInit {
 
     this.afTable = af.database.list('/car');
     this.afTable.subscribe((snapshots) => {
+      this.data = [];
+      this.filteredData = [];
       snapshots.forEach((snapshot) => {
         this.data.push({
           'name': snapshot.CarNumber,

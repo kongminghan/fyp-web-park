@@ -36,7 +36,7 @@
                   [autoScale]="autoScale"
                   [yAxisTickFormatting]="axisDigits">
                 </ngx-charts-area-chart>
-                <div class="md-padding" *ngIf="firebaseData[0].series.length < 1" layout="row" layout-align="center center">
+                <div class="md-padding" *ngIf="firebaseData[0].series.length < 2" layout="row" layout-align="center center">
                   <h3>No results to display.</h3>
                 </div>
               </div>

@@ -12,6 +12,7 @@ import { FeaturesFormComponent } from './dashboard-product/features/form/form.co
 // import { LogsComponent } from './logs/logs.component';
 import { DetailComponent } from './detail/detail.component';
 import { LoginComponent } from './login/login.component';
+import {ManageUserComponent} from "./manage-user/manage-user.component";
 // import { FormComponent } from './form/form.component';
 // import { TemplatesComponent } from './templates/templates.component';
 // import { DashboardTemplateComponent } from './templates/dashboard/dashboard.component';
@@ -20,6 +21,7 @@ import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
+  {path: 'user', component: ManageUserComponent},
   {path: '', component: DashboardProductComponent, children: [
     {path: '', component: ProductOverviewComponent},
     {path: 'stats', component: ProductStatsComponent},

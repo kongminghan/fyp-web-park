@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { TdDialogService} from '@covalent/core';
 import { ViewContainerRef } from '@angular/core';
 import { TdLoadingService } from '@covalent/core';
-import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from "angularfire2";
+import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
 
 @Component({
   selector: 'qs-login',

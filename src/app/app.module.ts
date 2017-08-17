@@ -34,6 +34,7 @@ import { AngularFireModule} from 'angularfire2';
 import { MomentModule } from 'angular2-moment';
 import {MdDialogModule} from "@angular/material";
 import { DialogDetailComponent } from './dialog-detail/dialog-detail.component';
+import { ManageUserComponent } from './manage-user/manage-user.component';
 
 const httpInterceptorProviders: Type<any>[] = [
   RequestInterceptor,
@@ -44,7 +45,7 @@ export const firebaseConfig = {
   authDomain: 'park-e5cd7.firebaseapp.com',
   databaseURL: 'https://park-e5cd7.firebaseio.com',
   storageBucket: 'park-e5cd7.appspot.com',
-  messagingSenderId: '834361452061'
+  messagingSenderId: '834361452061',
 };
 
 @NgModule({
@@ -64,6 +65,7 @@ export const firebaseConfig = {
     DetailComponent,
     LoginComponent,
     DialogDetailComponent,
+    ManageUserComponent,
     // TemplatesComponent,
     // DashboardTemplateComponent,
     // EmailTemplateComponent,

@@ -13,7 +13,7 @@
               <md-icon class="icon tc-indigo-700">directions_car</md-icon>
               <div layout="column">
                 <div class="md-subhead">Cars Detected</div>
-                <div class="md-caption tc-grey-600">updated {{ lastUpdatedCar | timeAgo }}</div>
+                <div class="md-caption tc-grey-600" *ngIf="lastUpdatedCar" >updated {{ lastUpdatedCar | timeAgo }}</div>
               </div>
             </md-card-content>
           </md-card>
@@ -27,7 +27,7 @@
               <md-icon class="icon tc-cyan-700">payment</md-icon>
               <div layout="column">
                 <div class="md-subhead">Payment Received</div>
-                <div class="md-caption tc-grey-600">updated {{ lastUpdatedPayment | timeAgo }}</div>
+                <div class="md-caption tc-grey-600" *ngIf="lastUpdatedPayment">updated {{ lastUpdatedPayment | timeAgo }}</div>
               </div>
             </md-card-content>
           </md-card>

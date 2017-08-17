@@ -1,10 +1,9 @@
 import {Component, AfterViewInit, Input} from '@angular/core';
 import { Title }     from '@angular/platform-browser';
 import { TdDigitsPipe, TdDialogService} from '@covalent/core';
-
+import { Router } from '@angular/router';
 import { ItemsService, UsersService } from '../../../services';
 import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
-import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'qs-product-overview',
@@ -36,7 +35,11 @@ export class ProductOverviewComponent implements AfterViewInit {
 
   constructor(private _titleService: Title,
               private _dialogService: TdDialogService,
+              private _router: Router,
               af: AngularFire) {
+    if (this.storage.getItem('user') === null) {
+      this._router.navigate(['/login']);
+    }
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
 
