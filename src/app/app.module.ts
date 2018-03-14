@@ -41,11 +41,11 @@ const httpInterceptorProviders: Type<any>[] = [
 ];
 
 export const firebaseConfig = {
-  apiKey: 'AIzaSyCg5ghgfUJm04r1kXju7HscTVA6FWMFCfw',
-  authDomain: 'park-e5cd7.firebaseapp.com',
-  databaseURL: 'https://park-e5cd7.firebaseio.com',
-  storageBucket: 'park-e5cd7.appspot.com',
-  messagingSenderId: '834361452061',
+  apiKey: KEY,
+  authDomain: URL,
+  databaseURL: DB_URL,
+  storageBucket: STORAGE_URL,
+  messagingSenderId: ID,
 };
 
 @NgModule({
